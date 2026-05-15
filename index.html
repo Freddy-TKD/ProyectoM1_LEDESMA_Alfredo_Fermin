@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!-- La linea de arriba le dice al navegador que este archivo usa HTML moderno. -->
+
+<!-- Abre toda la pagina HTML y avisa que el idioma principal es espanol. -->
+<html lang="es">
+
+<!-- El head guarda configuraciones de la pagina; no se ve directamente en pantalla. -->
+<head>
+  <!-- Permite que se vean bien letras, simbolos y caracteres especiales. -->
+  <meta charset="UTF-8">
+
+  <!-- Hace que la pagina se adapte al ancho del celular, tablet o computadora. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Es el texto que aparece en la pestana del navegador. -->
+  <title>Generador de Colores</title>
+
+  <!-- Conecta este HTML con el archivo CSS, que es el que le da colores, tamanos y diseno. -->
+  <link rel="stylesheet" href="./index.css">
+
+  <!-- Conecta este HTML con el archivo JavaScript, que le da funcionamiento a la pagina. -->
+  <!-- defer hace que el JavaScript espere a que el HTML cargue antes de ejecutarse. -->
+  <script src="./index.js" defer></script>
+
+<!-- Cierra la parte de configuracion de la pagina. -->
+</head>
+
+<!-- El body contiene todo lo que el usuario ve y usa en la pagina. -->
+<body>
+  <!-- Este aside es una barra lateral, como un menu al costado. -->
+  <aside class="navbar-lateral">
+    <!-- Titulo de la barra lateral. -->
+    <h2>GENRADOR DE PALETA</h2>
+
+    <!-- Caja/seccion donde se elige el formato del color. -->
+    <div class="navbar-section">
+      <!-- Subtitulo de esta seccion del menu. -->
+      <h3>Formato de Colores</h3>
+
+      <!-- label sirve para agrupar el texto con el circulito seleccionable. -->
+      <label>
+        <!-- Radio button: deja elegir una opcion entre varias. Esta empieza marcada por checked. -->
+        <input type="radio" name="tipoColor" value="hex" checked> Hexadecimal
+      <!-- Cierra el label de la opcion Hexadecimal. -->
+      </label>
+
+      <!-- Segundo label para la opcion HSL. -->
+      <label>
+        <!-- Otro radio button. Tiene el mismo name para que solo se pueda elegir una opcion a la vez. -->
+        <input type="radio" name="tipoColor" value="hsl"> HSL
+      <!-- Cierra el label de la opcion HSL. -->
+      </label>
+    <!-- Cierra la seccion de formato de colores. -->
+    </div>
+
+    <!-- Caja/seccion donde se elige cuantos colores se quieren generar. -->
+    <div class="navbar-section">
+      <!-- Subtitulo de esta seccion del menu. -->
+      <h3>Cantidad de colores</h3>
+
+      <!-- Lista desplegable. El id sirve para que JavaScript la encuentre despues. -->
+      <select id="cantidadColores">
+        <!-- Opcion para generar 6 colores. value es el dato real que lee JavaScript. -->
+        <option value="6">6 colores</option>
+
+        <!-- Opcion para generar 8 colores. -->
+        <option value="8">8 colores</option>
+
+        <!-- Opcion para generar 9 colores. -->
+        <option value="9">9 colores</option>
+      <!-- Cierra la lista desplegable. -->
+      </select>
+    <!-- Cierra la seccion de seleccion de cantidad. -->
+    </div>
+
+    <!-- Boton que el usuario toca para crear una nueva paleta de colores. -->
+    <button id="generarPaletas">Generar Paleta</button>
+  <!-- Cierra la barra lateral. -->
+  </aside>
+
+  <!-- main es el contenido principal de la pagina. -->
+  <main class="contenido-principal">
+    <!-- Titulo grande que se muestra arriba del contenido. -->
+    <h1>Generador Aleatorio de Colores</h1>
+
+    <!-- Aca JavaScript va a meter las tarjetas de colores generadas. -->
+    <section id="paletas"></section>
+  <!-- Cierra el contenido principal. -->
+  </main>
+
+  <!-- Cartelito que aparece cuando se copia un color al portapapeles. -->
+  <div id="toast">Color copiado!</div>
+<!-- Cierra todo lo visible de la pagina. -->
+</body>
+
+<!-- Cierra el documento HTML completo. -->
+</html>

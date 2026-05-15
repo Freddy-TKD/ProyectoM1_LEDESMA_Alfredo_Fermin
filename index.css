@@ -1,0 +1,318 @@
+/* El asterisco selecciona todos los elementos de la pagina. */
+* {
+  /* Saca los margenes que el navegador pone por defecto. */
+  margin: 0;
+
+  /* Saca los rellenos internos que el navegador pone por defecto. */
+  padding: 0;
+
+  /* Hace que width y height incluyan padding y borde; asi es mas facil calcular tamanos. */
+  box-sizing: border-box;
+}
+
+/* Estilos generales del cuerpo de la pagina. */
+body {
+  /* Tipo de letra principal; si no esta Arial, usa cualquier sans-serif parecida. */
+  font-family: Arial, sans-serif;
+
+  /* Imagen de fondo de toda la pagina. */
+  background-image: url("./Img/fondo_paleta_de_colores.jpg");
+
+  /* Hace que la imagen cubra toda la pantalla sin repetirse en mosaico. */
+  background-size: cover;
+
+  /* Centra la imagen de fondo. */
+  background-position: center;
+
+  /* Evita que la imagen se repita muchas veces. */
+  background-repeat: no-repeat;
+
+  /* Deja la imagen fija cuando se scrollea. */
+  background-attachment: fixed;
+
+  /* Pone los hijos directos del body uno al lado del otro: menu y contenido. */
+  display: flex;
+
+  /* Hace que el body mida el alto completo de la pantalla. */
+  height: 100vh;
+}
+
+/* Crea una capa transparente encima del fondo para que el contenido se lea mejor. */
+body::before {
+  /* Necesario para que el pseudo-elemento exista, aunque no tenga texto. */
+  content: "";
+
+  /* Lo fija a la pantalla, no al scroll. */
+  position: fixed;
+
+  /* Lo pega arriba de todo. */
+  top: 0;
+
+  /* Lo pega a la izquierda. */
+  left: 0;
+
+  /* Ocupa todo el ancho de la pantalla. */
+  width: 100%;
+
+  /* Ocupa todo el alto de la pantalla. */
+  height: 100%;
+
+  /* Color clarito con transparencia para suavizar el fondo. */
+  background-color: rgba(238, 233, 233, 0.4);
+
+  /* Lo manda atras del contenido para que no tape botones ni textos. */
+  z-index: -1;
+
+  /* Hace que esta capa no bloquee clicks del usuario. */
+  pointer-events: none;
+}
+
+/* Estilos de la barra lateral izquierda. */
+.navbar-lateral {
+  /* Ancho fijo del menu lateral. */
+  width: 300px;
+
+  /* Fondo oscuro con un poco de transparencia. */
+  background: rgba(51, 51, 51, 0.85);
+
+  /* Texto blanco dentro del menu. */
+  color: white;
+
+  /* Espacio interno para que el contenido no quede pegado al borde. */
+  padding: 20px;
+
+  /* Si el contenido del menu no entra, permite scrollear dentro del menu. */
+  overflow-y: auto;
+
+  /* Aplica un desenfoque al fondo que se ve por transparencia. */
+  backdrop-filter: blur(5px);
+}
+
+/* Estilos del titulo del menu lateral. */
+.navbar-lateral h2 {
+  /* Espacio debajo del titulo. */
+  margin-bottom: 20px;
+
+  /* Centra el texto del titulo. */
+  text-align: center;
+}
+
+/* Cada bloque de opciones dentro del menu. */
+.navbar-section {
+  /* Espacio debajo de cada seccion para separarlas. */
+  margin-bottom: 40px;
+}
+
+/* Subtitulos de las secciones del menu. */
+.navbar-section h3 {
+  /* Tamano del texto del subtitulo. */
+  font-size: 20px;
+
+  /* Espacio entre el subtitulo y las opciones de abajo. */
+  margin-bottom: 25px;
+
+  /* Convierte el texto a mayusculas. */
+  text-transform: uppercase;
+}
+
+/* Textos que acompanan los inputs del menu. */
+.navbar-section label {
+  /* Hace que cada opcion ocupe su propia linea. */
+  display: block;
+
+  /* Espacio debajo de cada opcion. */
+  margin-bottom: 30px;
+
+  /* Cambia el cursor a manito para mostrar que se puede tocar. */
+  cursor: pointer;
+}
+
+/* Lista desplegable de cantidad de colores. */
+.navbar-section select {
+  /* Ocupa todo el ancho disponible dentro del menu. */
+  width: 100%;
+
+  /* Espacio interno para que el texto no quede apretado. */
+  padding: 15px;
+
+  /* Espacio debajo de la lista. */
+  margin-bottom: 10px;
+
+  /* Redondea un poco las esquinas. */
+  border-radius: 4px;
+
+  /* Le saca el borde por defecto. */
+  border: none;
+}
+
+/* Estilos generales para los botones. */
+button {
+  /* El boton ocupa todo el ancho disponible. */
+  width: 100%;
+
+  /* Espacio interno para que el boton sea comodo de tocar. */
+  padding: 12px;
+
+  /* Color de fondo del boton. */
+  background: salmon;
+
+  /* Le saca el borde por defecto. */
+  border: none;
+
+  /* Color del texto del boton. */
+  color: white;
+
+  /* Texto en negrita. */
+  font-weight: bold;
+
+  /* Cursor de manito al pasar por arriba. */
+  cursor: pointer;
+
+  /* Esquinas apenas redondeadas. */
+  border-radius: 4px;
+
+  /* Tamano del texto del boton. */
+  font-size: 16px;
+}
+
+/* Estilo del boton cuando el mouse pasa por arriba. */
+button:hover {
+  /* Cambia el color para que se note que el boton responde. */
+  background: tomato;
+}
+
+/* Zona principal donde se muestran el titulo y las tarjetas. */
+.contenido-principal {
+  /* Ocupa todo el espacio que queda despues del menu lateral. */
+  flex: 1;
+
+  /* Espacio interno alrededor del contenido. */
+  padding: 30px;
+
+  /* Permite scrollear si las tarjetas no entran en la pantalla. */
+  overflow-y: auto;
+}
+
+/* Estilos del titulo principal. */
+h1 {
+
+  /* aca le doy tamaño al texto principal que es el H1 */
+  font-size: 6rem;
+
+  /* Centra el texto. */
+  text-align: center;
+
+  /* Espacio debajo del titulo. */
+  margin-bottom: 30px;
+
+  /* Color del texto. */
+  color: #333;
+
+  /* Sombra clara para que el texto resalte sobre el fondo. */
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+}
+
+/* Contenedor donde JavaScript mete todas las tarjetas de colores. */
+#paletas {
+  /* Activa una grilla para ordenar las tarjetas. */
+  display: grid;
+
+  /* Crea columnas automaticas: minimo 150px y maximo el espacio disponible. */
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+
+  /* Separacion entre tarjetas. */
+  gap: 20px;
+}
+
+/* Cada tarjeta individual de color. */
+.color-card {
+  /* Borde gris clarito. */
+  border: 2px solid #ddd;
+
+  /* Esquinas redondeadas. */
+  border-radius: 8px;
+
+  /* Fondo blanco con un poco de transparencia. */
+  background: rgba(255, 255, 255, 0.9);
+
+  /* Centra el texto dentro de la tarjeta. */
+  text-align: center;
+
+  /* Cursor de manito para mostrar que la tarjeta se puede tocar. */
+  cursor: pointer;
+
+  /* Oculta lo que se salga de los bordes redondeados. */
+  overflow: hidden;
+
+  /* Hace suave la animacion cuando la tarjeta crece en hover. */
+  transition: transform 0.2s;
+
+  /* Desenfoca un poquito el fondo que se ve detras de la tarjeta. */
+  backdrop-filter: blur(5px);
+}
+
+/* Efecto cuando el mouse pasa por arriba de una tarjeta. */
+.color-card:hover {
+  /* Agranda un poco la tarjeta para dar sensacion de interaccion. */
+  transform: scale(1.05);
+}
+
+/* Parte de arriba de la tarjeta: el rectangulo pintado con el color. */
+.color-display {
+  /* Alto fijo del rectangulo de color. */
+  height: 450px;
+}
+
+/* Texto de abajo de la tarjeta: el codigo del color. */
+.color-value {
+  /* Espacio interno alrededor del codigo. */
+  padding: 20px;
+
+  /* Fuente tipo codigo, ideal para mostrar valores como #A1B2C3. */
+  font-family: monospace;
+
+  /* Tamano del texto del codigo. */
+  font-size: 14px;
+
+  /* Codigo en negrita para que se lea mejor. */
+  font-weight: bold;
+}
+
+/* Cartelito flotante que avisa que se copio un color. */
+#toast {
+  /* Lo deja fijo en pantalla aunque haya scroll. */
+  position: fixed;
+
+  /* Lo separa 20px desde abajo. */
+  bottom: 80px;
+
+  /* Lo separa 20px desde la derecha. */
+  right: 900px;
+
+  /* Fondo verde de aviso correcto. */
+  background: #4caf50;
+
+  /* Texto blanco. */
+  color: white;
+
+  /* Espacio interno del cartel. */
+  padding: 15px 20px;
+
+  /* Esquinas redondeadas. */
+  border-radius: 5px;
+
+  /* Empieza invisible. */
+  opacity: 0;
+
+  /* Hace suave la aparicion y desaparicion. */
+  transition: opacity 0.5s;
+
+  /* Lo pone por encima de casi todo. */
+  z-index: 1000;
+}
+
+/* Cuando JavaScript le agrega la clase mostrar al toast. */
+#toast.mostrar {
+  /* Lo vuelve visible. */
+  opacity: 1;
+}
