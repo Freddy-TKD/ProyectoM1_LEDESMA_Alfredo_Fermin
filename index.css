@@ -70,7 +70,7 @@ body::before {
 /* Estilos de la barra lateral izquierda. */
 .navbar-lateral {
   /* Ancho fijo del menu lateral. */
-  width: 300px;
+  width: 220px;
 
   /* Fondo oscuro con un poco de transparencia. */
   background: rgba(51, 51, 51, 0.85);
@@ -143,6 +143,27 @@ body::before {
 
   /* Le saca el borde por defecto. */
   border: none;
+}
+
+.otrosGeneradores{
+  text-align: left;
+  color: cornsilk;
+}
+
+.otras-paletas{
+  color: azure;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.otras-paletas a,
+.otras-paletas a:visited {
+  color: white;
+}
+
+.otras-paletas a:hover {
+  color: cornsilk;
 }
 
 /* Estilos generales para los botones. */
@@ -260,7 +281,7 @@ h1 {
 /* Parte de arriba de la tarjeta: el rectangulo pintado con el color. */
 .color-display {
   /* Alto fijo del rectangulo de color. */
-  height: 450px;
+  height: 400px;
 }
 
 /* Texto de abajo de la tarjeta: el codigo del color. */
