@@ -39,19 +39,23 @@
     <br>
       <h3>Formato de Colores</h3>
 
-      <!-- label sirve para agrupar el texto con el circulito seleccionable. -->
-      <label>
-        <!-- Radio button: deja elegir una opcion entre varias. Esta empieza marcada por checked. -->
-        <input type="radio" name="tipoColor" value="hex" checked> Hexadecimal
-      <!-- Cierra el label de la opcion Hexadecimal. -->
-      </label>
+      <!-- Contenedor del switch para elegir entre HSL y HEX. -->
+      <div class="formato-switch">
+        <!-- Texto del extremo izquierdo del switch. -->
+        <span class="formato-label">HSL</span>
 
-      <!-- Segundo label para la opcion HSL. -->
-      <label>
-        <!-- Otro radio button. Tiene el mismo name para que solo se pueda elegir una opcion a la vez. -->
-        <input type="radio" name="tipoColor" value="hsl"> HSL
-      <!-- Cierra el label de la opcion HSL. -->
-      </label>
+        <!-- Label que permite tocar el switch completo para cambiar de formato. -->
+        <label class="switch-color" for="tipoColorSwitch">
+          <!-- Checkbox oculto: apagado es HSL y encendido es HEX. -->
+          <input type="checkbox" id="tipoColorSwitch" checked>
+
+          <!-- Parte visual del switch deslizante. -->
+          <span class="switch-slider"></span>
+        </label>
+
+        <!-- Texto del extremo derecho del switch. -->
+        <span class="formato-label">HEX</span>
+      </div>
     <!-- Cierra la seccion de formato de colores. -->
     </div>
 

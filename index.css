@@ -113,6 +113,9 @@ body::before {
 
   /* Convierte el texto a mayusculas. */
   text-transform: uppercase;
+
+  /* centra el texto */
+  text-align: center;
 }
 
 /* Textos que acompanan los inputs del menu. */
@@ -125,6 +128,132 @@ body::before {
 
   /* Cambia el cursor a manito para mostrar que se puede tocar. */
   cursor: pointer;
+}
+
+/* Contenedor que acomoda HSL, el switch y HEX en una misma fila. */
+.formato-switch {
+  /* Pone los textos y el switch uno al lado del otro. */
+  display: flex;
+
+  /* Centra verticalmente los textos y el switch. */
+  align-items: center;
+
+  /* Deja espacio entre HSL, el switch y HEX. */
+  gap: 12px;
+
+  /* Centra todo el grupo dentro del menu lateral. */
+  justify-content: center;
+}
+
+/* Texto de los extremos del switch: HSL y HEX. */
+.formato-label {
+  /* Tamano del texto de cada formato. */
+  font-size: 14px;
+
+  /* Texto en negrita para que se lea claro. */
+  font-weight: bold;
+}
+
+/* Caja principal del switch deslizante. */
+.formato-switch .switch-color {
+  /* Ancho total del switch. */
+  width: 64px;
+
+  /* Alto total del switch. */
+  height: 32px;
+
+  /* Necesario para ubicar adentro la parte deslizante. */
+  position: relative;
+
+  /* Quita el margen que heredaba de los labels normales del menu. */
+  margin-bottom: 0;
+
+  /* Hace que el switch no ocupe toda la linea. */
+  display: inline-block;
+}
+
+/* Checkbox real del switch, queda oculto pero sigue funcionando. */
+.switch-color input {
+  /* Lo vuelve invisible. */
+  opacity: 0;
+
+  /* Le saca ancho visible. */
+  width: 0;
+
+  /* Le saca alto visible. */
+  height: 0;
+}
+
+/* Fondo visible del switch. */
+.switch-slider {
+  /* Lo posiciona dentro de la caja del switch. */
+  position: absolute;
+
+  /* Lo estira hasta arriba. */
+  top: 0;
+
+  /* Lo estira hasta la derecha. */
+  right: 0;
+
+  /* Lo estira hasta abajo. */
+  bottom: 0;
+
+  /* Lo estira hasta la izquierda. */
+  left: 0;
+
+  /* Color de fondo cuando esta en HSL. */
+  background: #6b7280;
+
+  /* Cambia el cursor a manito para indicar que se puede tocar. */
+  cursor: pointer;
+
+  /* Redondea el fondo para que parezca un switch. */
+  border-radius: 32px;
+
+  /* Hace suave el movimiento y cambio de color. */
+  transition: 0.3s;
+}
+
+/* Circulo interno que se mueve dentro del switch. */
+.switch-slider::before {
+  /* Necesario para crear el circulo. */
+  content: "";
+
+  /* Ubica el circulo dentro del switch. */
+  position: absolute;
+
+  /* Ancho del circulo. */
+  width: 24px;
+
+  /* Alto del circulo. */
+  height: 24px;
+
+  /* Lo separa un poco desde la izquierda cuando esta en HSL. */
+  left: 4px;
+
+  /* Lo centra verticalmente dentro del switch. */
+  bottom: 4px;
+
+  /* Color del circulo. */
+  background: white;
+
+  /* Redondea totalmente el circulo. */
+  border-radius: 50%;
+
+  /* Hace suave el desplazamiento del circulo. */
+  transition: 0.3s;
+}
+
+/* Cambia el color del switch cuando esta encendido en HEX. */
+.switch-color input:checked + .switch-slider {
+  /* Color de fondo para indicar que esta activo HEX. */
+  background: salmon;
+}
+
+/* Mueve el circulo hacia la derecha cuando esta seleccionado HEX. */
+.switch-color input:checked + .switch-slider::before {
+  /* Desplaza el circulo del lado izquierdo al derecho. */
+  transform: translateX(32px);
 }
 
 /* Lista desplegable de cantidad de colores. */
@@ -227,10 +356,10 @@ h1 {
   margin-bottom: 30px;
 
   /* Color del texto. */
-  color: #333;
+  color: #613bc9;
 
   /* Sombra clara para que el texto resalte sobre el fondo. */
-  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+  text-shadow: 5px 5px 10px rgba(255, 255, 255, 0.8);
 }
 
 /* Contenedor donde JavaScript mete todas las tarjetas de colores. */
@@ -278,10 +407,106 @@ h1 {
   transform: scale(1.05);
 }
 
+/* Estilo extra para una tarjeta que tiene el color bloqueado. */
+.color-card-bloqueada {
+  /* Resalta la tarjeta bloqueada con un borde mas marcado. */
+  border-color: salmon;
+}
+
 /* Parte de arriba de la tarjeta: el rectangulo pintado con el color. */
 .color-display {
   /* Alto fijo del rectangulo de color. */
   height: 400px;
+
+  /* Permite ubicar el mensaje dentro de este rectangulo de color. */
+  position: relative;
+}
+
+/* Boton del candado que bloquea o desbloquea un color. */
+.color-lock-button {
+  /* Ubica el boton dentro del rectangulo de color. */
+  position: absolute;
+
+  /* Lo separa desde la parte de arriba. */
+  top: 12px;
+
+  /* Lo separa desde la derecha. */
+  right: 12px;
+
+  /* Define un ancho fijo para que no herede el 100% del boton general. */
+  width: 38px;
+
+  /* Define un alto fijo para que sea cuadrado. */
+  height: 38px;
+
+  /* Quita el relleno grande del boton general. */
+  padding: 0;
+
+  /* Fondo oscuro transparente para que se vea sobre cualquier color. */
+  background: rgba(0, 0, 0, 0.55);
+
+  /* Color del dibujo del candado. */
+  color: white;
+
+  /* Centra el candado horizontal y verticalmente. */
+  display: flex;
+
+  /* Centra el candado horizontalmente. */
+  justify-content: center;
+
+  /* Centra el candado verticalmente. */
+  align-items: center;
+
+  /* Tamano del dibujo del candado. */
+  font-size: 18px;
+
+  /* Redondea el boton para que parezca un control flotante. */
+  border-radius: 50%;
+
+  /* Lo pone por encima del mensaje de copiar. */
+  z-index: 2;
+}
+
+/* Efecto cuando se pasa el mouse por arriba del candado. */
+.color-lock-button:hover {
+  /* Oscurece un poco el fondo para mostrar que el boton responde. */
+  background: rgba(0, 0, 0, 0.75);
+}
+
+/* Mensaje pequeno que aparece dentro de cada color. */
+.color-copy-message {
+  /* Ubica el mensaje dentro del rectangulo de color. */
+  position: absolute;
+
+  /* Lo deja cerca de la parte de abajo del color. */
+  bottom: 16px;
+
+  /* Lo mueve hasta el centro horizontal del color. */
+  left: 50%;
+
+  /* Corrige el centrado para que el texto quede realmente al medio. */
+  transform: translateX(-50%);
+
+  /* Fondo oscuro transparente para que se lea sobre colores claros u oscuros. */
+  background: rgba(0, 0, 0, 0.55);
+
+  /* Color blanco para el texto del mensaje. */
+  color: white;
+
+  /* Espacio interno para que el texto no quede pegado al borde del cartelito. */
+  padding: 8px 12px;
+
+  /* Redondea un poco las esquinas del cartelito. */
+  border-radius: 4px;
+
+  /* Tamano pequeno del texto. */
+  font-size: 13px;
+
+  /* Pone el texto en negrita. */
+  font-weight: bold;
+
+  /* Evita que el texto se corte en dos lineas. */
+  white-space: nowrap;
 }
 
 /* Texto de abajo de la tarjeta: el codigo del color. */
@@ -304,11 +529,11 @@ h1 {
   /* Lo deja fijo en pantalla aunque haya scroll. */
   position: fixed;
 
-  /* Lo separa 20px desde abajo. */
-  bottom: 80px;
+  /* Lo separa 30px desde abajo. */
+  bottom: 30px;
 
-  /* Lo separa 20px desde la derecha. */
-  right: 900px;
+  /* Lo separa 30px desde la derecha para que quede visible en distintas pantallas. */
+  right: 800px;
 
   /* Fondo verde de aviso correcto. */
   background: #4caf50;
@@ -319,6 +544,12 @@ h1 {
   /* Espacio interno del cartel. */
   padding: 15px 20px;
 
+  /* Limita el ancho para que los textos largos no ocupen demasiado espacio. */
+  max-width: 320px;
+
+  /* Centra el texto dentro del cartel. */
+  text-align: center;
+
   /* Esquinas redondeadas. */
   border-radius: 5px;
 
@@ -326,7 +557,7 @@ h1 {
   opacity: 0;
 
   /* Hace suave la aparicion y desaparicion. */
-  transition: opacity 0.5s;
+  transition: opacity 1.5s;
 
   /* Lo pone por encima de casi todo. */
   z-index: 1000;

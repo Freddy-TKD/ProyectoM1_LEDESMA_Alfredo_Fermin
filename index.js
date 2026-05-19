@@ -4,8 +4,8 @@ const generarBtn = document.getElementById('generarPaletas');
 // Busca en el HTML la lista desplegable donde se elige 6, 8 o 9 colores.
 const cantidadSelect = document.getElementById('cantidadColores');
 
-// Busca todos los circulitos de opcion que tienen name="tipoColor".
-const tipoColorRadios = document.querySelectorAll('input[name="tipoColor"]');
+// Busca el switch que permite elegir entre HSL y HEX.
+const tipoColorSwitch = document.getElementById('tipoColorSwitch');
 
 // Busca la seccion vacia donde despues se van a dibujar las tarjetas de colores.
 const paletasSection = document.getElementById('paletas');
@@ -16,29 +16,34 @@ const toast = document.getElementById('toast');
 // Guarda que formato de color se esta usando ahora; arranca en hexadecimal.
 let tipoColorActual = 'hex';
 
-// Guarda los colores actuales de la pantalla para no cambiarlos al pasar de HEX a HSL.
+// Guarda los colores actuales de la pantalla y si cada uno esta bloqueado o no.
 let coloresActuales = [];
 
+// Guarda el temporizador del toast para poder reiniciarlo si aparece otro mensaje rapido.
+let temporizadorToast;
+
 // Cuando el usuario hace click en el boton, se ejecuta la funcion generarPaleta.
-generarBtn.addEventListener('click', generarPaleta);
+generarBtn.addEventListener('click', () => generarPaleta(true));
 
 // Cuando el usuario cambia la cantidad de colores, ahi si se vuelve a generar la paleta.
-cantidadSelect.addEventListener('change', generarPaleta);
+cantidadSelect.addEventListener('change', () => {
+  // Genera una nueva paleta con la cantidad elegida.
+  generarPaleta(false);
 
-// Recorre cada radio button de formato de color, uno por uno.
-tipoColorRadios.forEach(radio => {
-  // A cada radio button le escucha el cambio, o sea cuando el usuario lo selecciona.
-  radio.addEventListener('change', e => {
-    // Guarda el valor elegido: puede ser "hex" o "hsl".
-    tipoColorActual = e.target.value;
+  // Muestra un aviso con la nueva cantidad de colores.
+  mostrarToast(`Ahora se muestran ${cantidadSelect.value} colores`);
+});
 
-    // Muestra de nuevo las mismas tarjetas, pero cambiando el texto del formato.
-    mostrarPaleta();
+// Cuando el usuario mueve el switch, cambia el formato mostrado.
+tipoColorSwitch.addEventListener('change', () => {
+  // Si el switch esta encendido, usa HEX; si esta apagado, usa HSL.
+  tipoColorActual = tipoColorSwitch.checked ? 'hex' : 'hsl';
 
-  // Cierra el evento change de este radio button.
-  });
+  // Muestra de nuevo las mismas tarjetas, pero cambiando el texto del formato.
+  mostrarPaleta();
 
-// Cierra el recorrido de todos los radio buttons.
+  // Muestra un aviso indicando el formato elegido.
+  mostrarToast(`Formato cambiado a ${tipoColorActual.toUpperCase()}`);
 });
 
 // Funcion que arma un color hexadecimal al azar, por ejemplo #3FA9F5.
@@ -146,21 +151,44 @@ function obtenerTextoDelColor(colorHEX) {
 }
 
 // Funcion principal: genera colores nuevos y despues los muestra.
-function generarPaleta() {
+function generarPaleta(mostrarFeedback = false) {
   // Lee la cantidad elegida en el select y la convierte de texto a numero.
   const cantidad = parseInt(cantidadSelect.value);
+
+  // Guarda una copia de la paleta actual antes de generar la nueva.
+  const coloresAnteriores = coloresActuales;
 
   // Vacia la lista de colores actuales para cargar una paleta nueva.
   coloresActuales = [];
 
   // Repite el bloque de adentro tantas veces como colores se pidieron.
   for (let i = 0; i < cantidad; i++) {
-    // Genera un color HEX nuevo y lo guarda en la lista.
-    coloresActuales.push(generarColorHEX());
+    // Busca si en esta posicion ya habia un color antes.
+    const colorAnterior = coloresAnteriores[i];
+
+    // Si el color anterior estaba bloqueado, lo conserva sin cambiarlo.
+    if (colorAnterior && colorAnterior.bloqueado) {
+      // Mantiene el mismo color y su estado bloqueado.
+      coloresActuales.push(colorAnterior);
+
+    // Si no estaba bloqueado, genera un color nuevo.
+    } else {
+      // Guarda el color nuevo junto con su estado desbloqueado.
+      coloresActuales.push({
+        hex: generarColorHEX(),
+        bloqueado: false
+      });
+    }
   }
 
   // Dibuja en pantalla la paleta nueva.
   mostrarPaleta();
+
+  // Si corresponde, muestra un aviso de que se genero una nueva paleta.
+  if (mostrarFeedback) {
+    // Avisa al usuario que la accion del boton funciono.
+    mostrarToast('Nueva paleta generada');
+  }
 }
 
 // Funcion que dibuja las tarjetas usando los colores guardados.
@@ -169,24 +197,55 @@ function mostrarPaleta() {
   paletasSection.innerHTML = '';
 
   // Recorre todos los colores guardados actualmente.
-  coloresActuales.forEach(colorHEX => {
+  coloresActuales.forEach((colorActual, indice) => {
+    // Guarda el codigo HEX real del color.
+    const colorHEX = colorActual.hex;
+
     // Prepara el texto que se va a ver abajo de la tarjeta: HEX o HSL.
     const textoColor = obtenerTextoDelColor(colorHEX);
+
+    // Elige el dibujo del candado segun si el color esta bloqueado o desbloqueado.
+    const candado = colorActual.bloqueado ? '🔒' : '🔓';
+
+    // Prepara el texto que explica la accion del boton de candado.
+    const textoCandado = colorActual.bloqueado ? 'Desbloquear color' : 'Bloquear color';
 
     // Crea un div nuevo en memoria; todavia no se ve en la pagina.
     const tarjeta = document.createElement('div');
 
     // Le pone la clase color-card para que tome los estilos del CSS.
-    tarjeta.className = 'color-card';
+    tarjeta.className = colorActual.bloqueado ? 'color-card color-card-bloqueada' : 'color-card';
 
-    // Mete dentro de la tarjeta el rectangulo de color y el texto con el codigo.
+    // Mete dentro de la tarjeta el rectangulo de color, el boton de candado, el mensaje para copiar y el texto con el codigo.
     tarjeta.innerHTML = `
-      <div class="color-display" style="background-color: ${colorHEX}"></div>
+      <!-- Este div es el rectangulo grande donde se ve el color generado. -->
+      <div class="color-display" style="background-color: ${colorHEX}">
+        <!-- Este boton bloquea o desbloquea el color para que no cambie al generar otra paleta. -->
+        <button type="button" class="color-lock-button" aria-label="${textoCandado}" title="${textoCandado}">
+          ${candado}
+        </button>
+
+        <!-- Este span muestra el mensaje pequeno dentro del color. -->
+        <span class="color-copy-message">Click para COPIAR</span>
+      </div>
+      <!-- Este div muestra debajo el codigo del color, en formato HEX o HSL. -->
       <div class="color-value">${textoColor}</div>
     `;
 
     // Cuando el usuario hace click en la tarjeta, copia el texto que se esta mostrando.
     tarjeta.addEventListener('click', () => copiarAlPortapapeles(textoColor));
+
+    // Busca el boton de candado que esta dentro de esta tarjeta.
+    const botonCandado = tarjeta.querySelector('.color-lock-button');
+
+    // Cuando el usuario toca el candado, bloquea o desbloquea solo este color.
+    botonCandado.addEventListener('click', evento => {
+      // Evita que el click en el candado tambien copie el color.
+      evento.stopPropagation();
+
+      // Cambia el estado bloqueado/desbloqueado de este color.
+      alternarBloqueoColor(indice);
+    });
 
     // Agrega la tarjeta ya armada dentro de la seccion de paletas para que se vea.
     paletasSection.appendChild(tarjeta);
@@ -195,19 +254,56 @@ function mostrarPaleta() {
   });
 }
 
+// Funcion que bloquea o desbloquea un color de la paleta.
+function alternarBloqueoColor(indice) {
+  // Invierte el estado del color: si estaba bloqueado lo desbloquea, y al reves.
+  coloresActuales[indice].bloqueado = !coloresActuales[indice].bloqueado;
+
+  // Guarda el texto del color para mostrarlo en el aviso.
+  const textoColor = obtenerTextoDelColor(coloresActuales[indice].hex);
+
+  // Prepara el mensaje segun el nuevo estado del color.
+  const mensaje = coloresActuales[indice].bloqueado
+    ? `Color ${textoColor} bloqueado`
+    : `Color ${textoColor} desbloqueado`;
+
+  // Redibuja la paleta para actualizar el dibujo del candado.
+  mostrarPaleta();
+
+  // Muestra un aviso corto con la accion realizada.
+  mostrarToast(mensaje);
+}
+
 // Funcion que copia un texto al portapapeles.
 function copiarAlPortapapeles(texto) {
   // Usa la herramienta del navegador para copiar el texto recibido.
   navigator.clipboard.writeText(texto).then(() => {
-    // Si se copio bien, agrega la clase mostrar para que aparezca el cartelito.
-    toast.classList.add('mostrar');
+    // Si se copio bien, muestra un aviso con el color copiado.
+    mostrarToast(`Color ${texto} copiado`);
 
-    // Espera 2 segundos y despues saca la clase mostrar para ocultar el cartelito.
-    setTimeout(() => toast.classList.remove('mostrar'), 2000);
+  // Si el navegador no puede copiar el texto, muestra un aviso de error.
+  }).catch(() => {
+    // Avisa que la copia no se pudo completar.
+    mostrarToast('No se pudo copiar el color');
 
-  // Cierra lo que pasa cuando la copia salio bien.
+  // Cierra lo que pasa cuando falla la copia.
   });
 }
 
+// Funcion reutilizable para mostrar mensajes cortos en el cartel flotante.
+function mostrarToast(mensaje) {
+  // Cambia el texto del toast segun la accion que acaba de pasar.
+  toast.textContent = mensaje;
+
+  // Si habia un temporizador anterior, lo cancela para que no se cierre antes de tiempo.
+  clearTimeout(temporizadorToast);
+
+  // Hace visible el toast agregando la clase mostrar.
+  toast.classList.add('mostrar');
+
+  // Espera 2 segundos y despues oculta el toast.
+  temporizadorToast = setTimeout(() => toast.classList.remove('mostrar'), 2000);
+}
+
 // Cuando la pagina termina de cargar, genera una paleta automaticamente.
-window.addEventListener('load', generarPaleta);
+window.addEventListener('load', () => generarPaleta());
