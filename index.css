@@ -16,7 +16,7 @@ body {
   font-family: Arial, sans-serif;
 
   /* Imagen de fondo de toda la pagina. */
-  background-image: url("./Img/fondo_paleta_de_colores.jpg");
+  background-image: url("./Img/fondo_paleta.jpg");
 
   /* Hace que la imagen cubra toda la pantalla sin repetirse en mosaico. */
   background-size: cover;
