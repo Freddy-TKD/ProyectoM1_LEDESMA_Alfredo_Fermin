@@ -33,8 +33,11 @@ body {
   /* Pone los hijos directos del body uno al lado del otro: menu y contenido. */
   display: flex;
 
-  /* Hace que el body mida el alto completo de la pantalla. */
-  height: 100vh;
+  /* Hace que el body mida como minimo el alto completo de la pantalla. */
+  min-height: 100vh;
+
+  /* Evita scroll horizontal accidental en pantallas con zoom o TV. */
+  overflow-x: hidden;
 }
 
 /* Crea una capa transparente encima del fondo para que el contenido se lea mejor. */
@@ -69,8 +72,11 @@ body::before {
 
 /* Estilos de la barra lateral izquierda. */
 .navbar-lateral {
-  /* Ancho fijo del menu lateral. */
-  width: 220px;
+  /* Ancho flexible del menu lateral para que no quede raro en pantallas enormes. */
+  width: clamp(220px, 16vw, 300px);
+
+  /* Mantiene estable el ancho del menu dentro del flex principal. */
+  flex: 0 0 clamp(220px, 16vw, 300px);
 
   /* Fondo oscuro con un poco de transparencia. */
   background: rgba(51, 51, 51, 0.85);
@@ -336,8 +342,8 @@ button:hover {
   /* Ocupa todo el espacio que queda despues del menu lateral. */
   flex: 1;
 
-  /* Espacio interno alrededor del contenido. */
-  padding: 30px;
+  /* Espacio interno alrededor del contenido, adaptable a cada pantalla. */
+  padding: clamp(18px, 2.5vw, 48px);
 
   /* Permite scrollear si las tarjetas no entran en la pantalla. */
   overflow-y: auto;
@@ -353,7 +359,10 @@ button:hover {
 h1 {
 
   /* aca le doy tamaño al texto principal que es el H1 */
-  font-size: 6rem;
+  font-size: clamp(2.4rem, 4vw, 5rem);
+
+  /* Mantiene el titulo compacto cuando ocupa mas de una linea. */
+  line-height: 1.05;
 
   /* Centra el texto. */
   text-align: center;
@@ -433,8 +442,8 @@ h1 {
 
 /* Parte de arriba de la tarjeta: el rectangulo pintado con el color. */
 .color-display {
-  /* Alto fijo del rectangulo de color. */
-  height: 400px;
+  /* Alto adaptable del rectangulo de color. */
+  height: clamp(220px, 34vh, 420px);
 
   /* Permite ubicar el mensaje dentro de este rectangulo de color. */
   position: relative;
@@ -547,11 +556,12 @@ h1 {
   /* Lo deja fijo en pantalla aunque haya scroll. */
   position: fixed;
 
-  /* Lo separa 30px desde abajo. */
-  bottom: 210px;
+  /* Lo separa desde abajo sin depender del ancho de la pantalla. */
+  bottom: 30px;
 
-  /* Lo separa 30px desde la derecha para que quede visible en distintas pantallas. */
-  right: 750px;
+  /* Lo centra horizontalmente para que se vea bien tambien en TV. */
+  left: 50%;
+  transform: translateX(-50%);
 
   /* Fondo verde de aviso correcto. */
   background: #4caf50;
@@ -585,6 +595,35 @@ h1 {
 #toast.mostrar {
   /* Lo vuelve visible. */
   opacity: 1;
+}
+
+/* Ajustes especificos para pantallas muy anchas, como televisores. */
+@media (min-width: 1800px) {
+  #paletas {
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  }
+}
+
+/* Ajustes para celulares o pantallas angostas. */
+@media (max-width: 800px) {
+  body {
+    flex-direction: column;
+  }
+
+  .navbar-lateral {
+    width: 100%;
+    flex-basis: auto;
+    max-height: none;
+  }
+
+  .contenido-principal {
+    overflow-y: visible;
+  }
+
+  #paletas {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    overflow-y: visible;
+  }
 }
 
 #Contacto{
