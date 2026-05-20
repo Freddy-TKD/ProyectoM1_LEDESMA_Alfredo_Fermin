@@ -341,6 +341,12 @@ button:hover {
 
   /* Permite scrollear si las tarjetas no entran en la pantalla. */
   overflow-y: auto;
+
+  /* Usa flexbox para organizar el titulo, paletas y footer verticalmente. */
+  display: flex;
+
+  /* Organiza los elementos en columna (uno debajo del otro). */
+  flex-direction: column;
 }
 
 /* Estilos del titulo principal. */
@@ -360,6 +366,9 @@ h1 {
 
   /* Sombra clara para que el texto resalte sobre el fondo. */
   text-shadow: 5px 5px 10px rgba(255, 255, 255, 0.8);
+
+  /* El titulo no debe encoger ni crecer. */
+  flex-shrink: 0;
 }
 
 /* Contenedor donde JavaScript mete todas las tarjetas de colores. */
@@ -372,6 +381,15 @@ h1 {
 
   /* Separacion entre tarjetas. */
   gap: 20px;
+
+  /* Que ocupe el espacio disponible en la columna. */
+  flex: 1;
+
+  /* Permite scrollear si hay muchas tarjetas. */
+  overflow-y: auto;
+
+  /* Alinea el contenido desde arriba. */
+  align-content: start;
 }
 
 /* Cada tarjeta individual de color. */
@@ -530,10 +548,10 @@ h1 {
   position: fixed;
 
   /* Lo separa 30px desde abajo. */
-  bottom: 30px;
+  bottom: 210px;
 
   /* Lo separa 30px desde la derecha para que quede visible en distintas pantallas. */
-  right: 800px;
+  right: 750px;
 
   /* Fondo verde de aviso correcto. */
   background: #4caf50;
@@ -567,4 +585,75 @@ h1 {
 #toast.mostrar {
   /* Lo vuelve visible. */
   opacity: 1;
+}
+
+#Contacto{
+  /* No encoge. */
+  flex-shrink: 0;
+
+  /* Espacio superior para separar del contenido. */
+  margin-top: 40px;
+
+  /* Espacio interno. */
+  padding: 10px;
+
+  /* Fondo oscuro con transparencia como el menu. */
+  background: rgba(51, 51, 51, 0.85);
+
+  /* Texto blanco. */
+  color: white;
+
+  /* Centra el contenido. */
+  text-align: center;
+
+  /* Redondea un poco las esquinas. */
+  border-radius: 8px;
+
+  /* Bordes superior para separar visualmente. */
+  border-top: 2px solid #613bc9;
+}
+
+/* Titulo del footer. */
+#Contacto h3{
+  /* Espacio debajo del titulo. */
+  margin-bottom: 15px;
+
+  /* Texto en color morado como el titulo principal. */
+  color: #c8c2d6;
+
+  /* Aumenta un poco el tamaño. */
+  font-size: 1.5rem;
+}
+
+/* Parrafos dentro del footer. */
+#Contacto p{
+  /* Espacio entre lineas. */
+  margin-bottom: 5px;
+
+  /* Tamaño pequeño del texto. */
+  font-size: 12px;
+
+  /* Altura de linea para mejor legibilidad. */
+  line-height: 1.5;
+}
+
+/* Enlaces dentro del footer. */
+#Contacto a{
+  /* Color salmon como en los botones. */
+  color: salmon;
+
+  /* Sin subrayado. */
+  text-decoration: none;
+
+  /* Transicion suave. */
+  transition: color 0.3s;
+}
+
+/* Enlaces cuando se pasa el mouse. */
+#Contacto a:hover{
+  /* Color mas oscuro. */
+  color: tomato;
+
+  /* Subrayado al pasar. */
+  text-decoration: underline;
 }
