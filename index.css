@@ -385,8 +385,8 @@ h1 {
   /* Activa una grilla para ordenar las tarjetas. */
   display: grid;
 
-  /* Crea columnas automaticas: minimo 150px y maximo el espacio disponible. */
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  /* Crea columnas automaticas y evita que se rompan en pantallas angostas. */
+  grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
 
   /* Separacion entre tarjetas. */
   gap: 20px;
@@ -557,10 +557,10 @@ h1 {
   position: fixed;
 
   /* Lo separa desde abajo sin depender del ancho de la pantalla. */
-  bottom: 30px;
+  bottom: 230px;
 
   /* Lo centra horizontalmente para que se vea bien tambien en TV. */
-  left: 50%;
+  left: 55%;
   transform: translateX(-50%);
 
   /* Fondo verde de aviso correcto. */
@@ -597,10 +597,18 @@ h1 {
   opacity: 1;
 }
 
-/* Ajustes especificos para pantallas muy anchas, como televisores. */
-@media (min-width: 1800px) {
-  #paletas {
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+/* En pantallas con espacio, reparte exactamente los 6, 8 o 9 colores en una fila. */
+@media (min-width: 1100px) {
+  #paletas[data-cantidad="6"] {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  #paletas[data-cantidad="8"] {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+
+  #paletas[data-cantidad="9"] {
+    grid-template-columns: repeat(9, minmax(0, 1fr));
   }
 }
 
@@ -621,7 +629,7 @@ h1 {
   }
 
   #paletas {
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr));
     overflow-y: visible;
   }
 }

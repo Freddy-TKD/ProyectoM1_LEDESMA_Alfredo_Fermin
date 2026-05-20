@@ -155,6 +155,9 @@ function generarPaleta(mostrarFeedback = false) {
   // Lee la cantidad elegida en el select y la convierte de texto a numero.
   const cantidad = parseInt(cantidadSelect.value);
 
+  // Le avisa al CSS cuantos colores hay para acomodar mejor la grilla.
+  paletasSection.dataset.cantidad = cantidad;
+
   // Guarda una copia de la paleta actual antes de generar la nueva.
   const coloresAnteriores = coloresActuales;
 
