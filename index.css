@@ -73,10 +73,10 @@ body::before {
 /* Estilos de la barra lateral izquierda. */
 .navbar-lateral {
   /* Ancho flexible del menu lateral para que no quede raro en pantallas enormes. */
-  width: clamp(220px, 16vw, 300px);
+  width: clamp(200px, 16vw, 300px);
 
   /* Mantiene estable el ancho del menu dentro del flex principal. */
-  flex: 0 0 clamp(220px, 16vw, 300px);
+  flex: 0 0 clamp(200px, 16vw, 300px);
 
   /* Fondo oscuro con un poco de transparencia. */
   background: rgba(51, 51, 51, 0.85);
@@ -395,7 +395,7 @@ h1 {
   flex: 1;
 
   /* Permite scrollear si hay muchas tarjetas. */
-  overflow-y: auto;
+  overflow-x: hidden;
 
   /* Alinea el contenido desde arriba. */
   align-content: start;
