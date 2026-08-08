@@ -1,706 +1,500 @@
-/* El asterisco selecciona todos los elementos de la pagina. */
+/* Esto borra los espacios que pone el navegador por defecto */
 * {
-  /* Saca los margenes que el navegador pone por defecto. */
   margin: 0;
-
-  /* Saca los rellenos internos que el navegador pone por defecto. */
   padding: 0;
-
-  /* Hace que width y height incluyan padding y borde; asi es mas facil calcular tamanos. */
   box-sizing: border-box;
 }
 
-/* Estilos generales del cuerpo de la pagina. */
+/* Esto pone la fuente y el fondo general de la pagina */
 body {
-  /* Tipo de letra principal; si no esta Arial, usa cualquier sans-serif parecida. */
-  font-family: Arial, sans-serif;
-
-  /* Imagen de fondo de toda la pagina. */
-  background-image: url("./Img/fondo_paleta.jpg");
-
-  /* Hace que la imagen cubra toda la pantalla sin repetirse en mosaico. */
-  background-size: cover;
-
-  /* Centra la imagen de fondo. */
-  background-position: center;
-
-  /* Evita que la imagen se repita muchas veces. */
-  background-repeat: no-repeat;
-
-  /* Deja la imagen fija cuando se scrollea. */
-  background-attachment: fixed;
-
-  /* Pone los hijos directos del body uno al lado del otro: menu y contenido. */
-  display: flex;
-
-  /* Hace que el body mida como minimo el alto completo de la pantalla. */
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(135deg, #0f172a, #1e293b, #312e81);
+  color: #f8fafc;
   min-height: 100vh;
-
-  /* Evita scroll horizontal accidental en pantallas con zoom o TV. */
   overflow-x: hidden;
+  position: relative;
 }
 
-/* Crea una capa transparente encima del fondo para que el contenido se lea mejor. */
 body::before {
-  /* Necesario para que el pseudo-elemento exista, aunque no tenga texto. */
   content: "";
-
-  /* Lo fija a la pantalla, no al scroll. */
   position: fixed;
-
-  /* Lo pega arriba de todo. */
-  top: 0;
-
-  /* Lo pega a la izquierda. */
-  left: 0;
-
-  /* Ocupa todo el ancho de la pantalla. */
-  width: 100%;
-
-  /* Ocupa todo el alto de la pantalla. */
-  height: 100%;
-
-  /* Color clarito con transparencia para suavizar el fondo. */
-  background-color: rgba(238, 233, 233, 0.4);
-
-  /* Lo manda atras del contenido para que no tape botones ni textos. */
-  z-index: -1;
-
-  /* Hace que esta capa no bloquee clicks del usuario. */
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgba(15, 23, 42, 0.72), rgba(49, 46, 129, 0.65)),
+    url("Img/colorfly3.png") center/cover no-repeat;
+  opacity: 0.22;
+  z-index: -2;
   pointer-events: none;
 }
 
-/* Estilos de la barra lateral izquierda. */
-.navbar-lateral {
-  /* Ancho flexible del menu lateral para que no quede raro en pantallas enormes. */
-  width: clamp(200px, 16vw, 300px);
-
-  /* Mantiene estable el ancho del menu dentro del flex principal. */
-  flex: 0 0 clamp(200px, 16vw, 300px);
-
-  /* Fondo oscuro con un poco de transparencia. */
-  background: rgba(51, 51, 51, 0.85);
-
-  /* Texto blanco dentro del menu. */
-  color: white;
-
-  /* Espacio interno para que el contenido no quede pegado al borde. */
-  padding: 20px;
-
-  /* Si el contenido del menu no entra, permite scrollear dentro del menu. */
-  overflow-y: auto;
-
-  /* Aplica un desenfoque al fondo que se ve por transparencia. */
-  backdrop-filter: blur(5px);
-}
-
-/* Estilos del titulo del menu lateral. */
-.navbar-lateral h2 {
-  /* Espacio debajo del titulo. */
-  margin-bottom: 20px;
-
-  /* Centra el texto del titulo. */
-  text-align: center;
-}
-
-/* Cada bloque de opciones dentro del menu. */
-.navbar-section {
-  /* Espacio debajo de cada seccion para separarlas. */
-  margin-bottom: 40px;
-}
-
-/* Subtitulos de las secciones del menu. */
-.navbar-section h3 {
-  /* Tamano del texto del subtitulo. */
-  font-size: 20px;
-
-  /* Espacio entre el subtitulo y las opciones de abajo. */
-  margin-bottom: 25px;
-
-  /* Convierte el texto a mayusculas. */
-  text-transform: uppercase;
-
-  /* centra el texto */
-  text-align: center;
-}
-
-/* Textos que acompanan los inputs del menu. */
-.navbar-section label {
-  /* Hace que cada opcion ocupe su propia linea. */
-  display: block;
-
-  /* Espacio debajo de cada opcion. */
-  margin-bottom: 30px;
-
-  /* Cambia el cursor a manito para mostrar que se puede tocar. */
-  cursor: pointer;
-}
-
-/* Contenedor que acomoda HSL, el switch y HEX en una misma fila. */
-.formato-switch {
-  /* Pone los textos y el switch uno al lado del otro. */
-  display: flex;
-
-  /* Centra verticalmente los textos y el switch. */
-  align-items: center;
-
-  /* Deja espacio entre HSL, el switch y HEX. */
-  gap: 12px;
-
-  /* Centra todo el grupo dentro del menu lateral. */
-  justify-content: center;
-}
-
-/* Texto de los extremos del switch: HSL y HEX. */
-.formato-label {
-  /* Tamano del texto de cada formato. */
-  font-size: 14px;
-
-  /* Texto en negrita para que se lea claro. */
-  font-weight: bold;
-}
-
-/* Caja principal del switch deslizante. */
-.formato-switch .switch-color {
-  /* Ancho total del switch. */
-  width: 64px;
-
-  /* Alto total del switch. */
-  height: 32px;
-
-  /* Necesario para ubicar adentro la parte deslizante. */
-  position: relative;
-
-  /* Quita el margen que heredaba de los labels normales del menu. */
-  margin-bottom: 0;
-
-  /* Hace que el switch no ocupe toda la linea. */
-  display: inline-block;
-}
-
-/* Checkbox real del switch, queda oculto pero sigue funcionando. */
-.switch-color input {
-  /* Lo vuelve invisible. */
-  opacity: 0;
-
-  /* Le saca ancho visible. */
-  width: 0;
-
-  /* Le saca alto visible. */
-  height: 0;
-}
-
-/* Fondo visible del switch. */
-.switch-slider {
-  /* Lo posiciona dentro de la caja del switch. */
-  position: absolute;
-
-  /* Lo estira hasta arriba. */
-  top: 0;
-
-  /* Lo estira hasta la derecha. */
-  right: 0;
-
-  /* Lo estira hasta abajo. */
-  bottom: 0;
-
-  /* Lo estira hasta la izquierda. */
-  left: 0;
-
-  /* Color de fondo cuando esta en HSL. */
-  background: #6b7280;
-
-  /* Cambia el cursor a manito para indicar que se puede tocar. */
-  cursor: pointer;
-
-  /* Redondea el fondo para que parezca un switch. */
-  border-radius: 32px;
-
-  /* Hace suave el movimiento y cambio de color. */
-  transition: 0.3s;
-}
-
-/* Circulo interno que se mueve dentro del switch. */
-.switch-slider::before {
-  /* Necesario para crear el circulo. */
+body::after {
   content: "";
-
-  /* Ubica el circulo dentro del switch. */
-  position: absolute;
-
-  /* Ancho del circulo. */
-  width: 24px;
-
-  /* Alto del circulo. */
-  height: 24px;
-
-  /* Lo separa un poco desde la izquierda cuando esta en HSL. */
-  left: 4px;
-
-  /* Lo centra verticalmente dentro del switch. */
-  bottom: 4px;
-
-  /* Color del circulo. */
-  background: white;
-
-  /* Redondea totalmente el circulo. */
-  border-radius: 50%;
-
-  /* Hace suave el desplazamiento del circulo. */
-  transition: 0.3s;
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(244, 114, 182, 0.18), transparent 35%);
+  z-index: -1;
+  pointer-events: none;
 }
 
-/* Cambia el color del switch cuando esta encendido en HEX. */
-.switch-color input:checked + .switch-slider {
-  /* Color de fondo para indicar que esta activo HEX. */
-  background: salmon;
-}
-
-/* Mueve el circulo hacia la derecha cuando esta seleccionado HEX. */
-.switch-color input:checked + .switch-slider::before {
-  /* Desplaza el circulo del lado izquierdo al derecho. */
-  transform: translateX(32px);
-}
-
-/* Lista desplegable de cantidad de colores. */
-.navbar-section select {
-  /* Ocupa todo el ancho disponible dentro del menu. */
+.app-contenido {
+  display: none;
+  min-height: 100vh;
   width: 100%;
-
-  /* Espacio interno para que el texto no quede apretado. */
-  padding: 15px;
-
-  /* Espacio debajo de la lista. */
-  margin-bottom: 10px;
-
-  /* Redondea un poco las esquinas. */
-  border-radius: 4px;
-
-  /* Le saca el borde por defecto. */
-  border: none;
 }
 
-.otrosGeneradores{
-  text-align: left;
-  color: cornsilk;
+body.mostrar-app .welcome-screen {
+  display: none;
 }
 
-.otras-paletas{
-  color: azure;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-size: 20px;
-  margin-bottom: 10px;
-}
-
-.otras-paletas a,
-.otras-paletas a:visited {
-  color: white;
-}
-
-.otras-paletas a:hover {
-  color: cornsilk;
-}
-
-/* Estilos generales para los botones. */
-button {
-  /* El boton ocupa todo el ancho disponible. */
-  width: 100%;
-
-  /* Espacio interno para que el boton sea comodo de tocar. */
-  padding: 12px;
-
-  /* Color de fondo del boton. */
-  background: salmon;
-
-  /* Le saca el borde por defecto. */
-  border: none;
-
-  /* Color del texto del boton. */
-  color: white;
-
-  /* Texto en negrita. */
-  font-weight: bold;
-
-  /* Cursor de manito al pasar por arriba. */
-  cursor: pointer;
-
-  /* Esquinas apenas redondeadas. */
-  border-radius: 4px;
-
-  /* Tamano del texto del boton. */
-  font-size: 16px;
-}
-
-/* Estilo del boton cuando el mouse pasa por arriba. */
-button:hover {
-  /* Cambia el color para que se note que el boton responde. */
-  background: tomato;
-}
-
-/* Zona principal donde se muestran el titulo y las tarjetas. */
-.contenido-principal {
-  /* Ocupa todo el espacio que queda despues del menu lateral. */
-  flex: 1;
-
-  /* Espacio interno alrededor del contenido, adaptable a cada pantalla. */
-  padding: clamp(18px, 2.5vw, 48px);
-
-  /* Permite scrollear si las tarjetas no entran en la pantalla. */
-  overflow-y: auto;
-
-  /* Usa flexbox para organizar el titulo, paletas y footer verticalmente. */
+body.mostrar-app .app-contenido {
   display: flex;
+}
 
-  /* Organiza los elementos en columna (uno debajo del otro). */
+.welcome-screen {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background:
+    linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(49, 46, 129, 0.8)),
+    url("Img/colorfly3.png") center/cover no-repeat;
+}
+
+.welcome-overlay {
+  display: flex;
   flex-direction: column;
-}
-
-/* Estilos del titulo principal. */
-h1 {
-
-  /* aca le doy tamaño al texto principal que es el H1 */
-  font-size: clamp(2.4rem, 4vw, 5rem);
-
-  /* Mantiene el titulo compacto cuando ocupa mas de una linea. */
-  line-height: 1.05;
-
-  /* Centra el texto. */
-  text-align: center;
-
-  /* Espacio debajo del titulo. */
-  margin-bottom: 30px;
-
-  /* Color del texto. */
-  color: #613bc9;
-
-  /* Sombra clara para que el texto resalte sobre el fondo. */
-  text-shadow: 5px 5px 10px rgba(255, 255, 255, 0.8);
-
-  /* El titulo no debe encoger ni crecer. */
-  flex-shrink: 0;
-}
-
-/* Contenedor donde JavaScript mete todas las tarjetas de colores. */
-#paletas {
-  /* Activa una grilla para ordenar las tarjetas. */
-  display: grid;
-
-  /* Crea columnas automaticas y evita que se rompan en pantallas angostas. */
-  grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
-
-  /* Separacion entre tarjetas. */
+  align-items: center;
+  justify-content: center;
   gap: 20px;
-
-  /* Que ocupe el espacio disponible en la columna. */
-  flex: 1;
-
-  /* Permite scrollear si hay muchas tarjetas. */
-  overflow-x: hidden;
-
-  /* Alinea el contenido desde arriba. */
-  align-content: start;
-}
-
-/* Cada tarjeta individual de color. */
-.color-card {
-  /* Borde gris clarito. */
-  border: 2px solid #ddd;
-
-  /* Esquinas redondeadas. */
-  border-radius: 8px;
-
-  /* Fondo blanco con un poco de transparencia. */
-  background: rgba(255, 255, 255, 0.9);
-
-  /* Centra el texto dentro de la tarjeta. */
   text-align: center;
+  padding: 32px;
+  border-radius: 24px;
+  background: rgba(2, 6, 23, 0.38);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.28);
+}
 
-  /* Cursor de manito para mostrar que la tarjeta se puede tocar. */
+.welcome-image {
+  width: min(70vw, 460px);
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.28));
+}
+
+.btn-ingresar {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #7c3aed, #ec4899);
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
   cursor: pointer;
+  box-shadow: 0 12px 24px rgba(124, 58, 237, 0.28);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
-  /* Oculta lo que se salga de los bordes redondeados. */
+.btn-ingresar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px rgba(124, 58, 237, 0.35);
+}
+
+.welcome-text {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #f8fafc;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* .encabezado {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 20px;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+} */
+
+/* .logo {
+  display: block;
+  object-fit: contain;
+} */
+
+/* Esto es la barra de la izquierda */
+.navbar-lateral {
+  width: 280px;
+  background: rgba(15, 23, 42, 0.92);
+  color: white;
+  padding: 24px 16px 20px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Esto es el titulo del menu */
+.navbar-lateral h2 {
+  text-align: center;
+  margin-bottom: 22px;
+  font-size: 24px;
+  letter-spacing: 1px;
+  color: #f8fafc;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+}
+
+/* Esto es cada parte del menu */
+.navbar-section {
+  margin-bottom: 18px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+}
+
+/* Esto es el nombre de cada bloque del menu */
+.navbar-section h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  text-align: center;
+}
+
+/* Esto pone el switch de HSL y HEX en una fila */
+.formato-switch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Esto es el texto del switch */
+.formato-label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Esto es la cajita del switch */
+.switch-color {
+  position: relative;
+  display: inline-block;
+  width: 54px;
+  height: 28px;
+}
+
+/* Esto es el input del switch, pero oculto */
+.switch-color input {
+  display: none;
+}
+
+/* Esto es la parte visual del switch */
+.switch-slider {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #60a5fa, #7c3aed);
+  border-radius: 999px;
+  transition: 0.3s ease;
+}
+
+/* Esto es la bolita del switch */
+.switch-slider::before {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  left: 3px;
+  top: 3px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Esto cambia el color cuando el switch esta activo */
+.switch-color input:checked + .switch-slider {
+  background: linear-gradient(90deg, #f472b6, #fb923c);
+}
+
+/* Esto mueve la bolita a la derecha */
+.switch-color input:checked + .switch-slider::before {
+  transform: translateX(26px);
+}
+
+/* Esto da estilo al select y al boton principal */
+select,
+button#generarPaletas {
+  width: 100%;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 14px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* Esto es el boton de generar */
+button#generarPaletas {
+  background: linear-gradient(135deg, #7c3aed, #ec4899);
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  box-shadow: 0 10px 22px rgba(124, 58, 237, 0.25);
+}
+
+/* Esto cambia el boton cuando pasa el mouse */
+button#generarPaletas:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+  box-shadow: 0 14px 26px rgba(124, 58, 237, 0.35);
+}
+
+/* Esto es la parte de la derecha donde van las tarjetas */
+.contenido-principal {
+  flex: 1;
+  padding: 24px;
+  min-width: 0;
+}
+
+/* Esto es el titulo grande */
+h1 {
+  text-align: center;
+  margin-bottom: 22px;
+  color: #ffffff;
+  font-size: 34px;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* Esto acomoda las tarjetas en una grilla */
+#paletas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 15px;
+}
+
+/* Esto es cada tarjeta */
+.color-card {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.96);
   overflow: hidden;
-
-  /* Hace suave la animacion cuando la tarjeta crece en hover. */
-  transition: transform 0.2s;
-
-  /* Desenfoca un poquito el fondo que se ve detras de la tarjeta. */
-  backdrop-filter: blur(5px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.16);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-/* Efecto cuando el mouse pasa por arriba de una tarjeta. */
 .color-card:hover {
-  /* Agranda un poco la tarjeta para dar sensacion de interaccion. */
-  transform: scale(1.05);
+  transform: translateY(-5px);
+  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.22);
 }
 
-/* Estilo extra para una tarjeta que tiene el color bloqueado. */
 .color-card-bloqueada {
-  /* Resalta la tarjeta bloqueada con un borde mas marcado. */
-  border-color: salmon;
+  border-color: #9d7cfd;
+  box-shadow: 0 16px 36px rgba(157, 124, 253, 0.28);
 }
 
-/* Parte de arriba de la tarjeta: el rectangulo pintado con el color. */
+/* Esto es la parte donde se ve el color */
 .color-display {
-  /* Alto adaptable del rectangulo de color. */
-  height: clamp(220px, 34vh, 420px);
-
-  /* Permite ubicar el mensaje dentro de este rectangulo de color. */
+  height: 180px;
   position: relative;
 }
 
-/* Boton del candado que bloquea o desbloquea un color. */
+/* Esto es el botoncito del candado */
 .color-lock-button {
-  /* Ubica el boton dentro del rectangulo de color. */
   position: absolute;
-
-  /* Lo separa desde la parte de arriba. */
-  top: 12px;
-
-  /* Lo separa desde la derecha. */
-  right: 12px;
-
-  /* Define un ancho fijo para que no herede el 100% del boton general. */
-  width: 38px;
-
-  /* Define un alto fijo para que sea cuadrado. */
-  height: 38px;
-
-  /* Quita el relleno grande del boton general. */
-  padding: 0;
-
-  /* Fondo oscuro transparente para que se vea sobre cualquier color. */
-  background: rgba(0, 0, 0, 0.55);
-
-  /* Color del dibujo del candado. */
-  color: white;
-
-  /* Centra el candado horizontal y verticalmente. */
-  display: flex;
-
-  /* Centra el candado horizontalmente. */
-  justify-content: center;
-
-  /* Centra el candado verticalmente. */
-  align-items: center;
-
-  /* Tamano del dibujo del candado. */
-  font-size: 18px;
-
-  /* Redondea el boton para que parezca un control flotante. */
+  top: 10px;
+  right: 10px;
+  width: 42px;
+  height: 42px;
+  border: 2px solid rgba(255, 255, 255, 0.95);
   border-radius: 50%;
-
-  /* Lo pone por encima del mensaje de copiar. */
-  z-index: 2;
+  background: rgba(15, 23, 42, 0.95);
+  color: #f8fafc;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  z-index: 3;
+  transition: transform 0.2s ease, background 0.2s ease;
 }
 
-/* Efecto cuando se pasa el mouse por arriba del candado. */
 .color-lock-button:hover {
-  /* Oscurece un poco el fondo para mostrar que el boton responde. */
-  background: rgba(0, 0, 0, 0.75);
+  transform: scale(1.05);
+  background: rgba(15, 23, 42, 1);
 }
 
-/* Mensaje pequeno que aparece dentro de cada color. */
+/* Esto es el texto de copiar */
 .color-copy-message {
-  /* Ubica el mensaje dentro del rectangulo de color. */
   position: absolute;
-
-  /* Lo deja cerca de la parte de abajo del color. */
-  bottom: 16px;
-
-  /* Lo mueve hasta el centro horizontal del color. */
+  bottom: 12px;
   left: 50%;
-
-  /* Corrige el centrado para que el texto quede realmente al medio. */
   transform: translateX(-50%);
-
-  /* Fondo oscuro transparente para que se lea sobre colores claros u oscuros. */
-  background: rgba(0, 0, 0, 0.55);
-
-  /* Color blanco para el texto del mensaje. */
-  color: white;
-
-  /* Espacio interno para que el texto no quede pegado al borde del cartelito. */
-  padding: 8px 12px;
-
-  /* Redondea un poco las esquinas del cartelito. */
-  border-radius: 4px;
-
-  /* Tamano pequeno del texto. */
-  font-size: 13px;
-
-  /* Pone el texto en negrita. */
-  font-weight: bold;
-
-  /* Evita que el texto se corte en dos lineas. */
-  white-space: nowrap;
-}
-
-/* Texto de abajo de la tarjeta: el codigo del color. */
-.color-value {
-  /* Espacio interno alrededor del codigo. */
-  padding: 20px;
-
-  /* Fuente tipo codigo, ideal para mostrar valores como #A1B2C3. */
-  font-family: monospace;
-
-  /* Tamano del texto del codigo. */
-  font-size: 14px;
-
-  /* Codigo en negrita para que se lea mejor. */
-  font-weight: bold;
-}
-
-/* Cartelito flotante que avisa que se copio un color. */
-#toast {
-  /* Lo deja fijo en pantalla aunque haya scroll. */
-  position: fixed;
-
-  /* Lo separa desde abajo sin depender del ancho de la pantalla. */
-  bottom: 230px;
-
-  /* Lo centra horizontalmente para que se vea bien tambien en TV. */
-  left: 55%;
-  transform: translateX(-50%);
-
-  /* Fondo verde de aviso correcto. */
-  background: #4caf50;
-
-  /* Texto blanco. */
-  color: white;
-
-  /* Espacio interno del cartel. */
-  padding: 15px 20px;
-
-  /* Limita el ancho para que los textos largos no ocupen demasiado espacio. */
-  max-width: 320px;
-
-  /* Centra el texto dentro del cartel. */
-  text-align: center;
-
-  /* Esquinas redondeadas. */
-  border-radius: 5px;
-
-  /* Empieza invisible. */
   opacity: 0;
-
-  /* Hace suave la aparicion y desaparicion. */
-  transition: opacity 1.5s;
-
-  /* Lo pone por encima de casi todo. */
-  z-index: 1000;
+  pointer-events: none;
+  background: rgba(15, 23, 42, 0.95);
+  color: white;
+  padding: 8px 14px;
+  font-size: 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-/* Cuando JavaScript le agrega la clase mostrar al toast. */
+.color-card:hover .color-copy-message {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-2px);
+}
+
+/* Esto es el texto del color abajo */
+.color-value {
+  padding: 14px 12px 18px;
+  font-size: 14px;
+  text-align: center;
+  font-weight: bold;
+  color: #1f2937;
+}
+
+.color-card-bloqueada .color-lock-button {
+  background: #7c3aed;
+  border-color: rgba(255, 255, 255, 0.95);
+}
+
+/* Esto es el cartel de aviso */
+#toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #10b981, #3b82f6);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 999px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Esto hace visible el cartel */
 #toast.mostrar {
-  /* Lo vuelve visible. */
   opacity: 1;
 }
 
-/* En pantallas con espacio, reparte exactamente los 6, 8 o 9 colores en una fila. */
-@media (min-width: 1100px) {
-  #paletas[data-cantidad="6"] {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-  }
-
-  #paletas[data-cantidad="8"] {
-    grid-template-columns: repeat(8, minmax(0, 1fr));
-  }
-
-  #paletas[data-cantidad="9"] {
-    grid-template-columns: repeat(9, minmax(0, 1fr));
-  }
+/* Esto es el footer */
+#Contacto {
+  margin-top: 24px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 16px;
+  text-align: center;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
-/* Ajustes para celulares o pantallas angostas. */
+#Contacto h3 {
+  margin-bottom: 8px;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+#Contacto p {
+  margin: 4px 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #e2e8f0;
+}
+
+/* Esto da estilo a los links de otros generadores */
+.otras-paletas {
+  margin: 24px 0 16px;
+  padding: 16px 18px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.otras-paletas h2 {
+  margin: 0 0 12px;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.otras-paletas ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.otras-paletas li {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 10px 12px;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.otras-paletas li:hover {
+  transform: translateX(3px);
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.otras-paletas a {
+  color: #f8fafc;
+  text-decoration: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.otras-paletas a::before {
+  content: "🔗";
+  font-size: 14px;
+}
+
+.otras-paletas a:hover {
+  color: #3d7594;
+}
+
+/* Esto hace que todo se vea bien en celular */
 @media (max-width: 800px) {
-  body {
+  .app-contenido {
+    display: flex;
     flex-direction: column;
   }
 
   .navbar-lateral {
     width: 100%;
-    flex-basis: auto;
-    max-height: none;
-  }
-
-  .contenido-principal {
-    overflow-y: visible;
-  }
-
-  #paletas {
-    grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr));
-    overflow-y: visible;
   }
 }
 
-#Contacto{
-  /* No encoge. */
-  flex-shrink: 0;
-
-  /* Espacio superior para separar del contenido. */
-  margin-top: 40px;
-
-  /* Espacio interno. */
-  padding: 10px;
-
-  /* Fondo oscuro con transparencia como el menu. */
-  background: rgba(51, 51, 51, 0.85);
-
-  /* Texto blanco. */
-  color: white;
-
-  /* Centra el contenido. */
-  text-align: center;
-
-  /* Redondea un poco las esquinas. */
-  border-radius: 8px;
-
-  /* Bordes superior para separar visualmente. */
-  border-top: 2px solid #613bc9;
+.subtitulo{
+  font-size: 1rem;
+  color: #60a5fa;
+  padding-bottom: 1rem;
 }
 
-/* Titulo del footer. */
-#Contacto h3{
-  /* Espacio debajo del titulo. */
-  margin-bottom: 15px;
-
-  /* Texto en color morado como el titulo principal. */
-  color: #c8c2d6;
-
-  /* Aumenta un poco el tamaño. */
-  font-size: 1.5rem;
-}
-
-/* Parrafos dentro del footer. */
-#Contacto p{
-  /* Espacio entre lineas. */
-  margin-bottom: 5px;
-
-  /* Tamaño pequeño del texto. */
-  font-size: 12px;
-
-  /* Altura de linea para mejor legibilidad. */
-  line-height: 1.5;
-}
-
-/* Enlaces dentro del footer. */
-#Contacto a{
-  /* Color salmon como en los botones. */
-  color: salmon;
-
-  /* Sin subrayado. */
-  text-decoration: none;
-
-  /* Transicion suave. */
-  transition: color 0.3s;
-}
-
-/* Enlaces cuando se pasa el mouse. */
-#Contacto a:hover{
-  /* Color mas oscuro. */
-  color: tomato;
-
-  /* Subrayado al pasar. */
-  text-decoration: underline;
+.logoDev img,
+.logo-pequeno {
+  width: 80px;
+  max-width: 100%;
+  height: auto;
+  display: flex;
 }
