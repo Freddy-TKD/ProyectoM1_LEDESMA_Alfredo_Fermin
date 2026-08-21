@@ -493,8 +493,10 @@ h1 {
 
 .logoDev img,
 .logo-pequeno {
+  flex-wrap: wrap;
+  justify-content: center;
   width: 80px;
   max-width: 100%;
   height: auto;
-  display: flex;
+  -ms-flex-align: center;
 }

@@ -193,4 +193,3 @@ switchTipo?.addEventListener('change', () => {
 window.addEventListener('load', () => {
   generarPaleta();
 });
-
